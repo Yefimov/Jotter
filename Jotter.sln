@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jotter", "Jotter.csproj", "{F85BBD00-2648-4BBD-9F50-EE543D68B9EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JotterTest", "..\JotterTest\JotterTest.csproj", "{E6248A1F-5148-4169-A67A-ABB2C10FF4A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JotterTest", "JotterTest\JotterTest.csproj", "{E6248A1F-5148-4169-A67A-ABB2C10FF4A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
