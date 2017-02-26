@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using Jotter;
+using Ploeh.SemanticComparison;
 
 namespace JotterTest
 {
@@ -12,49 +15,52 @@ namespace JotterTest
         public void AddEmployeeTest()
         {
             // Arrange.
-            var expected = new Employee
+            var expectedEmployee = new Employee
             {
-                id = 10,
-                surname = @"Smith",
-                forename = @"John",
-                yearOfBirth = 1995,
-                phoneNumber = @"+14075552368",
-                manager = @"Johnson Ethan"
+                Surname = @"Smith",
+                Forename = @"John",
+                BirthYear = 1995,
+                PhoneNumber = @"+14075552368",
+                Manager = @"Johnson Ethan"
             };
+            //  AutoFixture's Likeness class offers general-purpose Test-Specific Equality.
+            // http://xunitpatterns.com/test-specific%20equality.html
+            var expected = new Ploeh.SemanticComparison.Likeness<Employee, Employee>(expectedEmployee);
             var listEmployee = new List<Employee>();
 
             // Act.
-            AddEmployee(listEmployee, id, surname, forename, yearOfBirth, phoneNumber, manager);
+            Employee.AddEmployee(listEmployee, @"Smith", @"John", 1995, @"+14075552368", @"Johnson Ethan");
             var actual = listEmployee[0];
 
             // Assert.
             Assert.AreEqual(expected, actual);
         }
-
+        
         // Create an entry about new Manager
         [TestMethod]
         public void AddManagerTest()
         {
             // Arrange.
-            var expected = new Manager
+            var expectedManager = new Manager
             {
-                id = 1,
-                surname = @"Johnson",
-                forename = @"Ethan",
-                yearOfBirth = 1980,
-                phoneNumber = @"+1407-555-4278",
-                departmentName = @"Testing Department"
+                Surname = @"Johnson",
+                Forename = @"Ethan",
+                BirthYear = 1980,
+                PhoneNumber = @"+14075554278",
+                DepartmentName = @"Testing Department"
             };
+            //  AutoFixture's Likeness class offers general-purpose Test-Specific Equality.
+            var expected = new Likeness<Manager, Manager>(expectedManager);
             var listManager = new List<Manager>();
 
             // Act.
-            AddManager(listManager, id, surname, forename, yearOfBirth, phoneNumber, departmentName);
+            Manager.AddManager(listManager, @"Johnson", @"Ethan", 1980, @"+14075554278", @"Testing Department");
             var actual = listManager[0];
 
             // Assert.
             Assert.AreEqual(expected, actual);
         }
-
+        
         // Delete an entry about Employee
         [TestMethod]
         public void DeleteEmployeeTest()
@@ -62,52 +68,38 @@ namespace JotterTest
             // Arrange.
 
             // Create an expected list of employees.
-            var expected = new List<Employee>();
+            var expectedEmployeeList = new List<Employee>();
             // Add employees to the list.
-            expected.Add(new Employee() { id = 1, surname = @"Smith", forename = @"John", yearOfBirth = 1995, phoneNumber = @"+14075552368", manager = @"Johnson Ethan" });
+            expectedEmployeeList.Add(new Manager()  { Surname = @"Mason", Forename = @"Lawrence", BirthYear = 1984, PhoneNumber = @"+14075553727", DepartmentName = @"Testing Department" });
+            expectedEmployeeList.Add(new Employee() { Surname = @"Smith", Forename = @"John", BirthYear = 1995, PhoneNumber = @"+14075552368", Manager = @"Johnson Ethan" });
+            var expected = new Ploeh.SemanticComparison.Likeness<List<Employee>, List<Employee>>(expectedEmployeeList);
+            // In this test we'll delete actual[2]
+            var numberInTheList = 2;
 
+            // Here we can see that DeleteEmployee can remove entries about Jotter.Employee and Jotter.Manager.
             var actual = new List<Employee>();
-            actual.Add(new Employee() { id = 10, surname = @"Smith", forename = @"John", yearOfBirth = 1995, phoneNumber = @"+14075552368", manager = @"Johnson Ethan" });
-            actual.Add(new Employee() { id = 11, surname = @"Gibson", forename = @"Patrick", yearOfBirth = 1993, phoneNumber = @"+19315558642", manager = @"Johnson Ethan" });
-            
+            actual.Add(new Manager() { Surname = @"Mason", Forename = @"Lawrence", BirthYear = 1984, PhoneNumber = @"+14075553727", DepartmentName = @"Testing Department" });
+            actual.Add(new Employee() { Surname = @"Smith", Forename = @"John", BirthYear = 1995, PhoneNumber = @"+14075552368", Manager = @"Johnson Ethan" });
+            actual.Add(new Manager() { Surname = @"Johnson", Forename = @"Ethan", BirthYear = 1980, PhoneNumber = @"+14075554278", DepartmentName = @"Testing Department" });
+
             // Act.
-            DeleteEmployee(actual, actual[1].id);
+            Employee.DeleteEmployee(actual, numberInTheList);
 
             // Assert.
             Assert.AreEqual(expected, actual);
         }
 
-        // Delete an entry about Manager
+        // Check, does this number has odd symbols and 4-15 lenght (standart E.164)
         [TestMethod]
-        public void DeleteManagerTest()
-        {
-            // Arrange.
-            
-            var expected = new List<Manager>();
-            expected.Add(new Manager() { id = 1, surname = @"Johnson", forename = @"Ethan", yearOfBirth = 1980, phoneNumber = @"" + 14075554278"", departmentName = @"Testing Department" });
-
-            var actual = new List<Manager>();
-            expected.Add(new Manager() { id = 1, surname = @"Johnson", forename = @"Ethan", yearOfBirth = 1980, phoneNumber = @"+1407-555-4278", departmentName = @"Testing Department" });
-            expected.Add(new Manager() { id = 5, surname = @"Mason", forename = @"Lawrence", yearOfBirth = 1984, phoneNumber = @"+1407-555-3727", departmentName = @"Testing Department" });
-
-            // Act.
-            DeleteManager(actual, actual[1].id);
-
-            // Assert.
-            Assert.AreEqual(expected, actual);
-        }
-
-        // Delete odd symbols from mobile number
-        [TestMethod]
-        public void CleanPhoneTest()
+        public void IsNumberTest()
         {
             // Arrange.
 
-            var expected = @"+14075554278";
-            var input = @" +1-407-555-4278 ";
+            var expected = true;
+            var input = @"+14075552368";
 
             // Act.
-            var actual = CleanPhone(input);
+            var actual = Employee.IsPhone(input);
 
             // Assert.
             Assert.AreEqual(expected, actual);

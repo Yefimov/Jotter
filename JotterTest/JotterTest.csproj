@@ -57,6 +57,16 @@
     <Compile Include="SortSearch_Test.cs" />
     <Compile Include="SaveLoad_Test.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AutoFixture\Src\SemanticComparison\SemanticComparison.csproj">
+      <Project>{C5C40C06-264D-4551-AF9E-310BF007F7D1}</Project>
+      <Name>SemanticComparison</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Jotter.csproj">
+      <Project>{F85BBD00-2648-4BBD-9F50-EE543D68B9EF}</Project>
+      <Name>Jotter</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
