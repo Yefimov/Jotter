@@ -51,7 +51,7 @@ namespace JotterTest
             };
             //  AutoFixture's Likeness class offers general-purpose Test-Specific Equality.
             var expected = new Likeness<Manager, Manager>(expectedManager);
-            var listManager = new List<Manager>();
+            var listManager = new List<Employee>();
 
             // Act.
             Manager.AddManager(listManager, @"Johnson", @"Ethan", 1980, @"+14075554278", @"Testing Department");

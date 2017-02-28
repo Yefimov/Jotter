@@ -46,7 +46,7 @@ namespace JotterTest
             listEmployee.Add(new Employee() { Id = 12, Surname = @"Smith", Forename = @"Michael", BirthYear = 1996, PhoneNumber = @"+14075559434", Manager = @"Mason Lawrence" });
 
             // Act.
-            var actual = SearchSurename(listEmployee, @"Smith");
+            var actual = SearchSurname(listEmployee, @"Smith");
 
             // Assert.
             Assert.AreEqual(expected, actual);

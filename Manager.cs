@@ -10,22 +10,17 @@ namespace Jotter
     {
         public string DepartmentName { get; set; }
 
-        public static void MakeEntryManager(List<Manager> listManager)
+        public static void MakeEntryManager(List<Employee> listManager)
         {
             Console.WriteLine();
-            var surname = Console.ReadLine();
-            CheckSurname(surname);
+            var surname = "ERROR";
             var forename = "ERROR";
-            CheckForename(forename);
             var birthYear = 0;
-            CheckBirthYear(birthYear);
             var phoneNumber = "555-2368";
-            CheckPhone(phoneNumber);
             var departmentName = "ERROR";
-            CheckDepartmentName(departmentName);
             try
             {
-                AddManager(listManager, surname, forename, birthYear, phoneNumber, departmentName);
+                AddManager(listManager, CheckSurname(surname), CheckForename(forename), CheckBirthYear(birthYear), CheckPhone(phoneNumber), CheckDepartmentName(departmentName));
             }
             catch (Exception e)
             {
@@ -36,18 +31,18 @@ namespace Jotter
 
         public static string CheckDepartmentName(string departmentName)
         {
-            Console.Write("Manager (full name): ");
+            Console.Write("Department name: ");
             departmentName = Console.ReadLine();
             if (!((departmentName.Length > 0) && (departmentName.Length < 45)))
             {
                 Console.WriteLine("ERROR: Name of department can't be longer than 45 symbols");
-                CheckDepartmentName(departmentName);
+                return CheckDepartmentName(departmentName);
             }
 
             return departmentName;
         }
 
-        public static void AddManager(List<Manager> listManager, string surname, string forename, int birthYear, string phoneNumber, string departmentName)
+        public static void AddManager(List<Employee> listManager, string surname, string forename, int birthYear, string phoneNumber, string departmentName)
         {
             var newbieManager = new Manager
             {
@@ -59,6 +54,11 @@ namespace Jotter
             };
 
             listManager.Add(newbieManager);
+        }
+
+        public override void ShowEntry()
+        {
+            Console.Write("{0} {1}, {2}, {3}. Department: {4}\n", Surname, Forename, BirthYear, PhoneNumber, DepartmentName);
         }
     }
 }

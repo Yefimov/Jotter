@@ -1,6 +1,0 @@
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\bin\Debug\Jotter.exe.config
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\bin\Debug\Jotter.exe
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\bin\Debug\Jotter.pdb
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\obj\Debug\Jotter.exe
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\obj\Debug\Jotter.pdb
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\obj\Debug\Jotter.csprojResolveAssemblyReference.cache

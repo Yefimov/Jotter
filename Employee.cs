@@ -9,55 +9,24 @@ namespace Jotter
 {
     public class Employee
     {
-        private string surname;
-        private string forename;
-        private int birthYear;
-        private string phoneNumber;
-        private string manager;
-
-        // A read-write instance property:
-        public string Surname
-        {
-            get { return surname; }
-            set { surname = value; }
-        }
-        public string Forename
-        {
-            get { return forename; }
-            set { forename = value; }
-        }
-        public int BirthYear
-        {
-            get { return birthYear; }
-            set { birthYear = value; }
-        }
-        public string PhoneNumber
-        {
-            get { return phoneNumber; }
-            set { phoneNumber = value; }
-        }
-        public string Manager
-        {
-            get { return manager; }
-            set { manager = value; }
-        }
+        //A read-write instance property:
+        public string Surname { get; set; } = "ERROR";
+        public string Forename { get; set; } = "ERROR";
+        public int BirthYear { get; set; } = 0;
+        public string PhoneNumber { get; set; } = "ERROR";
+        public string Manager { get; set; } = "ERROR";
 
         public static void MakeEntryEmployee(List<Employee> listEmployee)
         {
             Console.WriteLine();
-            var surname = Console.ReadLine();
-            CheckSurname(surname);
+            var surname = "ERROR";
             var forename = "ERROR";
-            CheckForename(forename);
             var birthYear = 0;
-            CheckBirthYear(birthYear);
             var phoneNumber = "555-2368";
-            CheckPhone(phoneNumber);
             var manager = "ERROR";
-            CheckManager(manager);
             try
             {
-                AddEmployee(listEmployee, surname, forename, birthYear, phoneNumber, manager);
+                AddEmployee(listEmployee, CheckSurname(surname), CheckForename(forename), CheckBirthYear(birthYear), CheckPhone(phoneNumber), CheckManager(manager));
             }
             catch (Exception e)
             {
@@ -88,7 +57,7 @@ namespace Jotter
             if (!((surname.Length > 0) && (surname.Length < 20)))
             {
                 Console.WriteLine("ERROR: Surname can't be longer than 20 symbols");
-                CheckSurname(surname);
+                return CheckSurname(surname);
             }
 
             return surname;
@@ -101,7 +70,7 @@ namespace Jotter
             if (!((forename.Length > 0) && (forename.Length < 20)))
             {
                 Console.WriteLine("ERROR: Forename can't be longer than 20 symbols");
-                CheckForename(forename);
+                return CheckForename(forename);
             }
 
             return forename;
@@ -110,11 +79,22 @@ namespace Jotter
         public static int CheckBirthYear(int birthYear)
         {
             Console.Write("Birth year: ");
-            birthYear = Convert.ToInt32(Console.ReadLine());
-            if (!((birthYear > 1870) && (birthYear < 1999)))
+            var inputString = Console.ReadLine();
+            var rgx = new Regex(@"[0-9]{4}$");
+            if (rgx.IsMatch(inputString))
             {
-                Console.WriteLine("ERROR: Birth year can't be earlier than 1870 and later than 1999");
-                CheckBirthYear(birthYear);
+                birthYear = Convert.ToInt32(inputString);
+                var todayDate = DateTime.Today;
+                if (!((todayDate.Year - birthYear <= 150) && (todayDate.Year - birthYear >= 18)))
+                {
+                    Console.WriteLine("ERROR: Employee can't be younger than 18 yo and older than 150. In your own interest, please take care to enter the correct data to avoid typing errors!");
+                    return CheckBirthYear(birthYear);
+                }
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Please, enter birth year in format \"XXXX\" (without quotes)");
+                return CheckBirthYear(birthYear);
             }
 
             return birthYear;
@@ -126,11 +106,13 @@ namespace Jotter
             phoneNumber = Console.ReadLine();
             if (!IsPhone(phoneNumber))
             {
-                Console.WriteLine("ERROR: Enter phone number in format \"+XXXXXXXXXXX\" (without quotes)");
-                CheckPhone(phoneNumber);
+                Console.WriteLine("ERROR: Please, enter phone number in format \"+XXXXXXXXXXX\" (without quotes)");
+                return CheckPhone(phoneNumber);
             }
-
-            return phoneNumber;
+            else
+            {
+                return phoneNumber;
+            }
         }
 
         public static bool IsPhone(string rawNumber)
@@ -147,24 +129,60 @@ namespace Jotter
             if (!((manager.Length > 0) && (manager.Length < 45)))
             {
                 Console.WriteLine("ERROR: Manager's name can't be longer than 45 symbols");
-                CheckManager(manager);
+                return CheckManager(manager);
             }
 
             return manager;
         }
         #endregion
 
-        public void RemoveEntryEmployee(List<Employee> listEmployee)
+        public static void RemoveEntry(List<Employee> listEmployee)
         {
-            Console.Write("\nWrite the number of entry you want to remove: ");
-            var numberInTheList = Convert.ToInt32(Console.ReadLine());
-
-            DeleteEmployee(listEmployee, numberInTheList);
+            Console.Write("Enter the number from employees list: ");
+            var inputString = Console.ReadLine();
+            var rgx = new Regex(@"[1-9]$");
+            if (rgx.IsMatch(inputString))
+            {
+                var numberInTheList = Convert.ToInt32(inputString);
+                DeleteEmployee(listEmployee, numberInTheList);
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Please, enter the correct number.");
+                RemoveEntry(listEmployee);
+            }
         }
 
         public static void DeleteEmployee(List<Employee> listEmployee, int numberInTheList)
         {
-            listEmployee.Remove(listEmployee[numberInTheList]);
+            if (listEmployee[numberInTheList] != null)
+            {
+                Console.WriteLine("Are you sure you want to delete entry #{0}? [Y]/[N]", numberInTheList);
+                switch (Console.ReadLine().ToLower())
+                {
+                    case "1":
+                    case "Y":
+                        listEmployee.Remove(listEmployee[numberInTheList]);
+                        Console.WriteLine("Entry successfully deleted!");
+                        break;
+                    case "2":
+                    case "N":
+                        Console.WriteLine("Deleting canceled.");
+                        break;
+                    default:
+                        Console.WriteLine("ERROR: Unknown command.");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("ERROR: Employees list doesn't contain entry with this number.");
+            }
+        }
+        
+        public virtual void ShowEntry()
+        {
+            Console.Write("{0} {1}, {2}, {3}. Manager: {4}\n", Surname, Forename, BirthYear, PhoneNumber, Manager);
         }
     }
 }
