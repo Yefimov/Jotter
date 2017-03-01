@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Jotter
 {
+    [Serializable]
     public class Employee
     {
         //A read-write instance property:
-        public string Surname { get; set; } = "ERROR";
-        public string Forename { get; set; } = "ERROR";
+        public string Surname { get; set; } = string.Empty;
+        public string Forename { get; set; } = string.Empty;
         public int BirthYear { get; set; } = 0;
-        public string PhoneNumber { get; set; } = "ERROR";
-        public string Manager { get; set; } = "ERROR";
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Manager { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Make Employee entry with the manager's name, not special Manager entry with ManagerName.
+        /// </summary>
+        /// <param name="listEmployee">Collection of entries</param>
         public static void MakeEntryEmployee(List<Employee> listEmployee)
         {
             Console.WriteLine();
@@ -35,6 +39,8 @@ namespace Jotter
             Console.WriteLine("Entry successfully  created!");
         }
 
+        /// <summary><seealso cref="Employee.MakeEntryEmployee(List{Employee})"/> uses it.</summary>
+        /// <param name="listEmployee">Collection of entries</param>
         public static void AddEmployee(List<Employee> listEmployee, string surname, string forename, int birthYear, string phoneNumber, string manager)
         {
             var newbieEmployee = new Employee
@@ -50,6 +56,11 @@ namespace Jotter
         }
 
         #region Checking the entered values
+        /// <summary>
+        /// User have to enter the correct surname of employee.
+        /// </summary>
+        /// <param name="forename">Employee's surname</param>
+        /// <returns>Checked surname</returns>
         public static string CheckSurname(string surname)
         {
             Console.Write("Surname: ");
@@ -63,6 +74,11 @@ namespace Jotter
             return surname;
         }
 
+        /// <summary>
+        /// User have to enter the correct forename of employee.
+        /// </summary>
+        /// <param name="forename">Employee's forename</param>
+        /// <returns>Checked forename</returns>
         public static string CheckForename(string forename)
         {
             Console.Write("Forename: ");
@@ -76,6 +92,11 @@ namespace Jotter
             return forename;
         }
 
+        /// <summary>
+        /// User have to enter the correct birth year.
+        /// </summary>
+        /// <param name="birthYear">Employee's birth year</param>
+        /// <returns>Checked birth year</returns>
         public static int CheckBirthYear(int birthYear)
         {
             Console.Write("Birth year: ");
@@ -100,6 +121,11 @@ namespace Jotter
             return birthYear;
         }
 
+        /// <summary>
+        /// User have to enter the correct phone number.
+        /// </summary>
+        /// <param name="phoneNumber">Employee's phone number</param>
+        /// <returns>Checked phone number</returns>
         public static string CheckPhone(string phoneNumber)
         {
             Console.Write("Phone number: ");
@@ -115,6 +141,11 @@ namespace Jotter
             }
         }
 
+        /// <summary>
+        /// Checking by regular expression entered phone number.
+        /// </summary>
+        /// <param name="rawNumber">Entered number</param>
+        /// <returns>Boolean value about matching regex</returns>
         public static bool IsPhone(string rawNumber)
         {
             // https://en.wikipedia.org/wiki/E.164
@@ -153,6 +184,11 @@ namespace Jotter
             }
         }
 
+        /// <summary>
+        /// Delete an entry about Employee or Manager
+        /// </summary>
+        /// <param name="listEmployee">Collection of entries</param>
+        /// <param name="numberInTheList">What entry we are goind to clear</param>
         public static void DeleteEmployee(List<Employee> listEmployee, int numberInTheList)
         {
             if (listEmployee[numberInTheList] != null)
@@ -179,7 +215,10 @@ namespace Jotter
                 Console.WriteLine("ERROR: Employees list doesn't contain entry with this number.");
             }
         }
-        
+
+        /// <summary>
+        /// Display Manager object on screen. Necessary for <seealso cref="Program.ShowList(List{Employee})"/>
+        /// </summary>
         public virtual void ShowEntry()
         {
             Console.Write("{0} {1}, {2}, {3}. Manager: {4}\n", Surname, Forename, BirthYear, PhoneNumber, Manager);

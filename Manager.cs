@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Jotter
 {
+    [Serializable]
     public class Manager : Employee
     {
         public string DepartmentName { get; set; }
 
+        /// <summary>
+        /// Make Manager entry with DepartmentName, not normal Employee entry with ManagerName
+        /// </summary>
+        /// <param name="listEmployee">Collection of entries</param>
         public static void MakeEntryManager(List<Employee> listManager)
         {
             Console.WriteLine();
@@ -29,6 +32,11 @@ namespace Jotter
             Console.WriteLine("Entry successfully  created!");
         }
 
+        /// <summary>
+        /// User have to enter the correct name of department.
+        /// </summary>
+        /// <param name="departmentName">Name of manager's department</param>
+        /// <returns>Checked name of department</returns>
         public static string CheckDepartmentName(string departmentName)
         {
             Console.Write("Department name: ");
@@ -41,7 +49,9 @@ namespace Jotter
 
             return departmentName;
         }
-
+        
+        /// <summary><seealso cref="Manager.MakeEntryManager(List{Employee})"/> uses it.</summary>
+        /// <param name="listEmployee">Collection of entries</param>
         public static void AddManager(List<Employee> listManager, string surname, string forename, int birthYear, string phoneNumber, string departmentName)
         {
             var newbieManager = new Manager
@@ -56,6 +66,10 @@ namespace Jotter
             listManager.Add(newbieManager);
         }
 
+        // Polymorphism example.
+        /// <summary>
+        /// Display Manager object on screen. Necessary for <seealso cref="Program.ShowList(List{Employee})"/>
+        /// </summary>
         public override void ShowEntry()
         {
             Console.Write("{0} {1}, {2}, {3}. Department: {4}\n", Surname, Forename, BirthYear, PhoneNumber, DepartmentName);

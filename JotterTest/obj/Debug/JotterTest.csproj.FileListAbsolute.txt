@@ -1,9 +1,0 @@
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\obj\Debug\JotterTest.csprojResolveAssemblyReference.cache
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\bin\Debug\JotterTest.dll
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\bin\Debug\JotterTest.pdb
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\bin\Debug\Jotter.exe
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\bin\Debug\Jotter.pdb
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\obj\Debug\JotterTest.dll
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\obj\Debug\JotterTest.pdb
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\bin\Debug\Ploeh.SemanticComparison.dll
-C:\Users\lolop\Documents\Visual Studio 2015\Projects\Jotter\JotterTest\bin\Debug\Ploeh.SemanticComparison.pdb

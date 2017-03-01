@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ArrayOfEmployee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Employee>
+    <Surname>Stakhanov</Surname>
+    <Forename>Alexey</Forename>
+    <BirthYear>1995</BirthYear>
+    <PhoneNumber>+15557392508</PhoneNumber>
+    <Manager>Petrov Konstantin</Manager>
+  </Employee>
+  <Employee xsi:type="Manager">
+    <Surname>Blaine Wolfe+590</Surname>
+    <Forename>Hubert</Forename>
+    <BirthYear>1914</BirthYear>
+    <PhoneNumber>+4905241482694</PhoneNumber>
+    <Manager />
+    <DepartmentName>HR Department</DepartmentName>
+  </Employee>
+  <Employee>
+    <Surname>Zaplavskiy</Surname>
+    <Forename>Joseph</Forename>
+    <BirthYear>1989</BirthYear>
+    <PhoneNumber>+15557161800</PhoneNumber>
+    <Manager>Petrov Konstantin</Manager>
+  </Employee>
+  <Employee>
+    <Surname>Koroleva</Surname>
+    <Forename>Klavdiya</Forename>
+    <BirthYear>1997</BirthYear>
+    <PhoneNumber>+15557769408</PhoneNumber>
+    <Manager>Dmitry Mamin-Sibiryak</Manager>
+  </Employee>
+  <Employee>
+    <Surname>Hennecke</Surname>
+    <Forename>Adolf</Forename>
+    <BirthYear>1995</BirthYear>
+    <PhoneNumber>+49492180185611</PhoneNumber>
+    <Manager>Blaine Wolfe+590</Manager>
+  </Employee>
+  <Employee xsi:type="Manager">
+    <Surname>Petrov</Surname>
+    <Forename>Konstantin</Forename>
+    <BirthYear>1984</BirthYear>
+    <PhoneNumber>+15558501704</PhoneNumber>
+    <Manager />
+    <DepartmentName>Irmino Mining Facility</DepartmentName>
+  </Employee>
+  <Employee xsi:type="Manager">
+    <Surname>Mamin-Sibiryak</Surname>
+    <Forename>Dmitry</Forename>
+    <BirthYear>1972</BirthYear>
+    <PhoneNumber>+75552114558</PhoneNumber>
+    <Manager />
+    <DepartmentName>Automated Testing Department</DepartmentName>
+  </Employee>
+  <Employee>
+    <Surname>van Stratum</Surname>
+    <Forename>Didier</Forename>
+    <BirthYear>1978</BirthYear>
+    <PhoneNumber>+4555270524</PhoneNumber>
+    <Manager>Mamin-Sibiryak Dmitry</Manager>
+  </Employee>
+</ArrayOfEmployee>
